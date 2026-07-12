@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Space Grotesk", sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: #f8fafc; /* bg-slate-50 */
+    color: #0f172a; /* text-slate-900 */
+    font-family: var(--font-sans);
+  }
+}
+
+/* Bento card specific hover effects and styling */
+.bento-card {
+  @apply bg-white rounded-2xl border border-slate-100 p-6 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden;
+}
+
+.bento-card-indigo {
+  @apply bg-gradient-to-br from-indigo-50/50 to-white rounded-2xl border border-indigo-100/60 p-6 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden;
+}
+
+.bento-card-emerald {
+  @apply bg-gradient-to-br from-emerald-50/40 to-white rounded-2xl border border-emerald-100/60 p-6 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden;
+}
+
+.bento-card-amber {
+  @apply bg-gradient-to-br from-amber-50/40 to-white rounded-2xl border border-amber-100/60 p-6 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden;
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1.5rem;
+}

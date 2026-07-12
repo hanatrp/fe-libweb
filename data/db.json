@@ -1,0 +1,160 @@
+{
+  "users": [
+    {
+      "id": "usr_1",
+      "name": "Admin Perpus",
+      "email": "admin@libweb.com",
+      "role": "admin",
+      "password": "password123",
+      "created_at": "2026-07-11T07:31:29.916Z",
+      "updated_at": "2026-07-11T07:31:29.917Z",
+      "deleted_at": null
+    },
+    {
+      "id": "usr_2",
+      "name": "Budi Santoso",
+      "email": "siswa@libweb.com",
+      "role": "member",
+      "password": "password123",
+      "created_at": "2026-07-11T07:31:29.917Z",
+      "updated_at": "2026-07-11T07:31:29.917Z",
+      "deleted_at": null
+    },
+    {
+      "id": "usr_3",
+      "name": "Siti Rahma",
+      "email": "siti@libweb.com",
+      "role": "member",
+      "password": "password123",
+      "created_at": "2026-07-11T07:31:29.917Z",
+      "updated_at": "2026-07-11T07:31:29.917Z",
+      "deleted_at": null
+    }
+  ],
+  "books": [
+    {
+      "id": "bk_1",
+      "title": "Laskar Pelangi",
+      "author": "Andrea Hirata",
+      "publisher": "Bentang Pustaka",
+      "year": 2005,
+      "isbn": "978-979-3062-79-1",
+      "stock": 4,
+      "total_stock": 5,
+      "category": "Fiksi",
+      "cover_url": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400",
+      "is_ebook": false,
+      "ebook_content": null,
+      "created_at": "2026-07-11T07:31:29.917Z",
+      "updated_at": "2026-07-11T07:31:29.917Z",
+      "deleted_at": null
+    },
+    {
+      "id": "bk_2",
+      "title": "Bumi Manusia",
+      "author": "Pramoedya Ananta Toer",
+      "publisher": "Lentera Dipantara",
+      "year": 1980,
+      "isbn": "978-979-97312-3-4",
+      "stock": 2,
+      "total_stock": 3,
+      "category": "Sastra",
+      "cover_url": "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&q=80&w=400",
+      "is_ebook": false,
+      "ebook_content": null,
+      "created_at": "2026-07-11T07:31:29.917Z",
+      "updated_at": "2026-07-11T07:31:29.917Z",
+      "deleted_at": null
+    },
+    {
+      "id": "bk_3",
+      "title": "Belajar TypeScript & React",
+      "author": "Rian Wijaya",
+      "publisher": "Informatika",
+      "year": 2023,
+      "isbn": "978-602-875-121-0",
+      "stock": 5,
+      "total_stock": 5,
+      "category": "Teknologi",
+      "cover_url": "https://images.unsplash.com/photo-1516116211223-5c359a36298a?auto=format&fit=crop&q=80&w=400",
+      "is_ebook": true,
+      "ebook_content": "# Pengenalan TypeScript dan React di LibWeb\n\nSelamat membaca E-Book ini! Buku ini dirancang untuk mengajarkan Anda konsep dasar TypeScript, pengembangan komponen modular dengan React 19, serta penanganan tipe data (type-safety) untuk sistem web skala industri.\n\n## Daftar Isi\n1. Pengenalan TypeScript\n2. Struktur Komponen React\n3. Pengelolaan State & Hooks\n4. Integrasi API Serverless\n\n## Bab 1: Mengapa TypeScript?\nTypeScript menambahkan static typing pada JavaScript untuk mendeteksi kesalahan sintaks sejak tahap kompilasi. Dengan menggunakan interface, enum, dan generic types, kode Anda menjadi lebih stabil dan mudah dipelihara.\n\n## Bab 2: Komponen Modular\nKomponen React haruslah reusable, modular, dan memiliki tanggung jawab tunggal. Pisahkan file CSS, types, dan components untuk memudahkan kerja tim.\n\n## Bab 3: Logika Sirkulasi di Perpustakaan\nDalam sistem LibWeb, transaksi sirkulasi divalidasi ketat secara server-side agar stok tidak pernah negatif, denda dihitung berdasarkan selisih hari keterlambatan, dan status diperbarui otomatis secara real-time.",
+      "created_at": "2026-07-11T07:31:29.917Z",
+      "updated_at": "2026-07-11T07:31:29.917Z",
+      "deleted_at": null
+    },
+    {
+      "id": "bk_4",
+      "title": "Negeri 5 Menara",
+      "author": "A. Fuadi",
+      "publisher": "Gramedia Pustaka Utama",
+      "year": 2009,
+      "isbn": "978-979-22-4845-6",
+      "stock": 1,
+      "total_stock": 2,
+      "category": "Fiksi",
+      "cover_url": "https://images.unsplash.com/photo-1495640388908-05fa85288e61?auto=format&fit=crop&q=80&w=400",
+      "is_ebook": false,
+      "ebook_content": null,
+      "created_at": "2026-07-11T07:31:29.917Z",
+      "updated_at": "2026-07-11T08:32:26.425Z",
+      "deleted_at": null
+    },
+    {
+      "id": "bk_5",
+      "title": "Sains Modern untuk Pemula",
+      "author": "Prof. Dr. Anton",
+      "publisher": "Sains Press",
+      "year": 2021,
+      "isbn": "978-602-123-456-7",
+      "stock": 3,
+      "total_stock": 3,
+      "category": "Sains",
+      "cover_url": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=400",
+      "is_ebook": true,
+      "ebook_content": "# Panduan Sains Modern untuk Pemula\n\nBuku sains modern ini membahas teori-teori fisika kuantum, astronomi kosmologis, serta biologi molekuler secara sederhana dan interaktif untuk pembaca umum.\n\n## Bab 1: Kosmos yang Dinamis\nSeluruh alam semesta berkembang pesat sejak peristiwa Dentuman Besar (Big Bang). Kita dapat mengamati radiasi latar belakang kosmis untuk mendeteksi asal-usul materi.\n\n## Bab 2: Mekanika Kuantum & Atom\nDi dunia subatomik, partikel berperilaku ganda sebagai gelombang dan materi. Teori relativitas umum Einstein menyatu dengan kuantum membentuk dasar teknologi modern seperti semikonduktor dan laser.\n\n## Bab 3: Menjaga Keseimbangan Ekosistem\nKehidupan di Bumi bergantung pada interaksi mikroorganisme, atmosfer, dan siklus karbon yang dinamis. Penting bagi kita untuk melestarikan lingkungan melalui energi terbarukan.",
+      "created_at": "2026-07-11T07:31:29.917Z",
+      "updated_at": "2026-07-11T07:31:29.917Z",
+      "deleted_at": null
+    }
+  ],
+  "loans": [
+    {
+      "id": "loan_1",
+      "user_id": "usr_2",
+      "book_id": "bk_1",
+      "borrow_date": "2026-06-26T07:31:29.917Z",
+      "due_date": "2026-07-03T07:31:29.918Z",
+      "return_date": "2026-07-11T07:31:29.918Z",
+      "fine_amount": 7000,
+      "status": "returned",
+      "created_at": "2026-06-26T07:31:29.917Z",
+      "updated_at": "2026-07-11T07:31:29.918Z"
+    },
+    {
+      "id": "loan_2",
+      "user_id": "usr_2",
+      "book_id": "bk_4",
+      "borrow_date": "2026-07-01T07:31:29.918Z",
+      "due_date": "2026-07-08T07:31:29.918Z",
+      "return_date": "2026-07-11T08:32:26.425Z",
+      "fine_amount": 4000,
+      "status": "returned",
+      "created_at": "2026-07-01T07:31:29.918Z",
+      "updated_at": "2026-07-11T08:32:26.425Z"
+    }
+  ],
+  "chatMessages": [
+    {
+      "id": "msg_1",
+      "user_id": "usr_2",
+      "role": "assistant",
+      "message": "Halo Budi Santoso! Saya adalah Chatbot Perpustakaan LibWeb. Ada yang bisa saya bantu hari ini? Anda bisa menanyakan rekomendasi buku, status denda, atau cara meminjam buku.",
+      "created_at": "2026-07-11T07:31:29.917Z"
+    }
+  ],
+  "settings": {
+    "fine_rate": 1000,
+    "max_loan_days": 7
+  }
+}

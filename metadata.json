@@ -1,0 +1,6 @@
+{
+  "name": "LibWeb",
+  "description": "Sistem Informasi Perpustakaan Berbasis Web dengan sirkulasi stok otomatis, denda dinamis, e-book preview, dan chatbot bantuan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
