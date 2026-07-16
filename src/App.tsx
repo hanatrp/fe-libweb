@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { API_BASE } from "./config";
 import Navbar from "./components/Navbar.tsx";
 import LandingPage from "./components/LandingPage.tsx";
 import AdminDashboard from "./components/AdminDashboard.tsx";
@@ -38,7 +39,7 @@ export default function App() {
       if (currentUser) headers.Authorization = `Bearer ${authToken}`;
       const includeDeleted = currentUser?.role === "admin" ? "?include_deleted=true" : "";
       
-      const res = await fetch(`/api/books${includeDeleted}`, { headers });
+      const res = await fetch(`${API_BASE}/books${includeDeleted}`, { headers });
       if (res.ok) {
         const data = await res.json();
         setBooks(data.books);
@@ -51,7 +52,7 @@ export default function App() {
   const fetchUsers = async () => {
     if (!currentUser || currentUser.role !== "admin") return;
     try {
-      const res = await fetch("/api/users?include_deleted=true", {
+      const res = await fetch(`${API_BASE}/users?include_deleted=true`, {
         headers: { Authorization: `Bearer ${authToken}` },
       });
       if (res.ok) {
@@ -69,7 +70,7 @@ export default function App() {
       return;
     }
     try {
-      const res = await fetch("/api/loans", {
+      const res = await fetch(`${API_BASE}/loans`, {
         headers: { Authorization: `Bearer ${authToken}` },
       });
       if (res.ok) {
@@ -83,7 +84,7 @@ export default function App() {
 
   const fetchSettings = async () => {
     try {
-      const res = await fetch("/api/settings");
+      const res = await fetch(`${API_BASE}/settings`);
       if (res.ok) {
         const data = await res.json();
         setSettings(data.settings);
@@ -107,7 +108,7 @@ export default function App() {
       if (token) {
         setIsLoading(true);
         try {
-          const res = await fetch("/api/user", {
+          const res = await fetch(`${API_BASE}/user`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -147,7 +148,7 @@ export default function App() {
       // Auto login as Budi Santoso (siswa@libweb.com)
       setIsLoading(true);
       try {
-        const res = await fetch("/api/auth/login", {
+        const res = await fetch(`${API_BASE}/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email: "siswa@libweb.com", password: "password123" }),
@@ -168,7 +169,7 @@ export default function App() {
       // Auto login as Admin Perpus (admin@libweb.com)
       setIsLoading(true);
       try {
-        const res = await fetch("/api/auth/login", {
+        const res = await fetch(`${API_BASE}/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email: "admin@libweb.com", password: "password123" }),
@@ -205,7 +206,7 @@ export default function App() {
     setIsLoading(true);
 
     try {
-      const res = await fetch("/api/auth/login", {
+      const res = await fetch(`${API_BASE}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: loginEmail, password: loginPassword }),
@@ -238,7 +239,7 @@ export default function App() {
   const handleBorrowBook = async (bookId: string, studentId?: string) => {
     if (!currentUser) return;
     try {
-      const res = await fetch("/api/loans/borrow", {
+      const res = await fetch(`${API_BASE}/loans/borrow`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -266,7 +267,7 @@ export default function App() {
   const handleReturnBook = async (loanId: string) => {
     if (!currentUser) return;
     try {
-      const res = await fetch(`/api/loans/${loanId}/return`, {
+      const res = await fetch(`${API_BASE}/loans/${loanId}/return`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -289,7 +290,7 @@ export default function App() {
   const handleAddBook = async (bookData: any) => {
     if (!currentUser || currentUser.role !== "admin") return;
     try {
-      const res = await fetch("/api/books", {
+      const res = await fetch(`${API_BASE}/books`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -314,7 +315,7 @@ export default function App() {
   const handleUpdateBook = async (id: string, bookData: any) => {
     if (!currentUser || currentUser.role !== "admin") return;
     try {
-      const res = await fetch(`/api/books/${id}`, {
+      const res = await fetch(`${API_BASE}/books/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -341,7 +342,7 @@ export default function App() {
     if (!window.confirm("Apakah Anda yakin ingin melakukan SoftDelete pada buku ini? Data sirkulasi lampau tetap aman.")) return;
     
     try {
-      const res = await fetch(`/api/books/${id}`, {
+      const res = await fetch(`${API_BASE}/books/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -364,7 +365,7 @@ export default function App() {
   const handleRestoreBook = async (id: string) => {
     if (!currentUser || currentUser.role !== "admin") return;
     try {
-      const res = await fetch(`/api/books/${id}/restore`, {
+      const res = await fetch(`${API_BASE}/books/${id}/restore`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -387,7 +388,7 @@ export default function App() {
   const handleAddUser = async (userData: any) => {
     if (!currentUser || currentUser.role !== "admin") return;
     try {
-      const res = await fetch("/api/users", {
+      const res = await fetch(`${API_BASE}/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -412,7 +413,7 @@ export default function App() {
   const handleUpdateUser = async (id: string, userData: any) => {
     if (!currentUser || currentUser.role !== "admin") return;
     try {
-      const res = await fetch(`/api/users/${id}`, {
+      const res = await fetch(`${API_BASE}/users/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -439,7 +440,7 @@ export default function App() {
     if (!window.confirm("Apakah Anda yakin ingin menangguhkan keanggotaan siswa ini secara sementara?")) return;
     
     try {
-      const res = await fetch(`/api/users/${id}`, {
+      const res = await fetch(`${API_BASE}/users/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -462,7 +463,7 @@ export default function App() {
   const handleRestoreUser = async (id: string) => {
     if (!currentUser || currentUser.role !== "admin") return;
     try {
-      const res = await fetch(`/api/users/${id}/restore`, {
+      const res = await fetch(`${API_BASE}/users/${id}/restore`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -485,7 +486,7 @@ export default function App() {
   const handleUpdateProfile = async (profileData: any) => {
     if (!currentUser) return;
     try {
-      const res = await fetch("/api/auth/profile/update", {
+      const res = await fetch(`${API_BASE}/auth/profile/update`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -510,7 +511,7 @@ export default function App() {
   const handleUpdateSettings = async (settingsData: any) => {
     if (!currentUser || currentUser.role !== "admin") return;
     try {
-      const res = await fetch("/api/settings", {
+      const res = await fetch(`${API_BASE}/settings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

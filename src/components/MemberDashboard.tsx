@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { API_BASE } from "../config";
 import { User, Loan, Book, ChatMessage } from "../types";
 import { MessageSquare, Sparkles, Send, Trash2, Calendar, AlertCircle, BookOpen, Clock, RefreshCw, Bookmark, ArrowRight, HelpCircle } from "lucide-react";
 
@@ -33,7 +34,7 @@ export default function MemberDashboard({
   const fetchChatHistory = async () => {
     if (!currentUser) return;
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch(`${API_BASE}/chat`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -76,7 +77,7 @@ export default function MemberDashboard({
     setMessages((prev) => [...prev, tempUserMsg]);
 
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch(`${API_BASE}/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -111,7 +112,7 @@ export default function MemberDashboard({
     if (!currentUser) return;
     if (!window.confirm("Apakah Anda yakin ingin menghapus seluruh riwayat percakapan dengan LibBot?")) return;
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch(`${API_BASE}/chat`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
