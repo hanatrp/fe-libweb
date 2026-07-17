@@ -42,10 +42,15 @@ export interface Loan {
   // Enriched fields from API
   user_name?: string;
   user_email?: string;
+  student_name?: string;
   book_title?: string;
   book_author?: string;
   book_isbn?: string;
   book_cover?: string;
+
+  // Relations
+  user?: User;
+  book?: Book;
 }
 
 export interface ChatMessage {

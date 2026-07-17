@@ -259,8 +259,8 @@ export default function AdminDashboard({
                         return (
                           <tr key={loan.id} className="hover:bg-slate-50/40 transition-colors">
                             <td className="p-4">
-                              <p className="font-bold text-slate-800 font-display">{loan.user_name}</p>
-                              <p className="text-[10px] text-slate-400 font-mono">{loan.user_email}</p>
+                              <p className="font-bold text-slate-800 font-display">{loan.user?.name || loan.student_name}</p>
+                              <p className="text-[10px] text-slate-400 font-mono">{loan.user?.email}</p>
                             </td>
                             <td className="p-4">
                               <div className="flex items-center space-x-2.5">
@@ -272,7 +272,7 @@ export default function AdminDashboard({
                                 />
                                 <div className="max-w-[140px] truncate">
                                   <p className="font-bold text-slate-800 truncate font-display">{loan.book_title}</p>
-                                  <p className="text-[9px] text-slate-400 truncate font-mono">ISBN: {loan.book_isbn}</p>
+                                  <p className="text-[9px] text-slate-400 truncate font-mono">ISBN: {loan.book?.isbn}</p>
                                 </div>
                               </div>
                             </td>
