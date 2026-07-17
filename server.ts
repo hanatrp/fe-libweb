@@ -4,24 +4,35 @@ import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 import { db, Carbon } from "./server/db.ts";
 import http from "http";
+import https from "https";
 
 const app = express();
 const PORT = 3000;
 
 // Proxy /api requests to Laravel Backend
 app.use("/api", (req, res) => {
+  console.log(`[Proxy Request] ${req.method} ${req.originalUrl}`);
   const options = {
-    host: "127.0.0.1",
-    port: 8000,
-    path: req.originalUrl,
+    hostname: "libweb.my.id",
+    port: 443,
+    path: "/public" + req.originalUrl,
     method: req.method,
     headers: { ...req.headers }
   };
-  
-  // Set Host header correctly for Laravel
-  options.headers.host = "127.0.0.1:8000";
 
-  const proxyReq = http.request(options, (proxyRes) => {
+  // Set Host header correctly for Laravel
+  if (options.headers) {
+    options.headers.host = "libweb.my.id";
+    delete options.headers.connection;
+    delete options.headers.host;
+    options.headers.Host = "libweb.my.id";
+  }
+
+  console.log(`[Proxy Target] https://${options.hostname}${options.path}`);
+  console.log(`[Proxy Headers]`, JSON.stringify(options.headers));
+
+  const proxyReq = https.request(options, (proxyRes) => {
+    console.log(`[Proxy Response] ${proxyRes.statusCode} for ${req.originalUrl}`);
     res.writeHead(proxyRes.statusCode || 200, proxyRes.headers);
     proxyRes.pipe(res);
   });
@@ -166,7 +177,7 @@ app.post("/api/auth/profile/update", (req, res) => {
 app.get("/api/books", (req, res) => {
   const user = getAuthUser(req);
   const includeDeleted = user?.role === "admin" && req.query.include_deleted === "true";
-  
+
   let books = db.books.all(includeDeleted);
 
   // Search filter
@@ -272,7 +283,7 @@ app.put("/api/books/:id", (req, res) => {
       // Adjust current stock proportionally to change in total stock
       const difference = parsedTotal - currentBook.total_stock;
       const newStock = currentBook.stock + difference;
-      
+
       if (newStock < 0) {
         return res.status(400).json({ error: "Total stok tidak bisa dikurangi melebihi sisa stok yang ada saat ini." });
       }
@@ -564,14 +575,14 @@ app.get("/api/reports/analytics", (req, res) => {
     .filter((b) => b.deleted_at === null && !b.is_ebook)
     .reduce((sum, b) => sum + b.total_stock, 0);
   const totalEbooks = books.filter((b) => b.deleted_at === null && b.is_ebook).length;
-  
+
   const totalMembers = users.filter((u) => u.role === "member" && u.deleted_at === null).length;
-  
+
   const activeLoans = loans.filter((l) => l.status !== "returned");
   const totalBorrowedCount = activeLoans.length;
-  
+
   const overdueCount = loans.filter((l) => l.status === "overdue").length;
-  
+
   const totalFinesCollected = loans
     .filter((l) => l.status === "returned")
     .reduce((sum, l) => sum + l.fine_amount, 0);

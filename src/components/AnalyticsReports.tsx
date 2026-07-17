@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { API_BASE } from "../config";
 import { AnalyticsReport, User } from "../types";
 import { TrendingUp, Award, Download, Printer, BarChart3, PieChart as PieIcon, LineChart, ShieldCheck, DollarSign, BookOpen, Users } from "lucide-react";
 
@@ -14,7 +15,7 @@ export default function AnalyticsReports({ currentUser }: AnalyticsReportsProps)
   const fetchAnalytics = async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/reports/analytics", {
+      const res = await fetch(`${API_BASE}/reports/analytics`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
