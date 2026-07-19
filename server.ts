@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
@@ -6,32 +7,51 @@ import { db, Carbon } from "./server/db.ts";
 import http from "http";
 import https from "https";
 
+dotenv.config();
+
 const app = express();
 const PORT = 3000;
 
 // Proxy /api requests to Laravel Backend
 app.use("/api", (req, res) => {
   console.log(`[Proxy Request] ${req.method} ${req.originalUrl}`);
-  const options = {
-    hostname: "libweb.my.id",
-    port: 443,
-    path: "/public" + req.originalUrl,
+  
+  let targetUrl: URL;
+  try {
+    const rawUrl = process.env.VITE_API_BASE_URL || "https://libweb.my.id/public/api";
+    targetUrl = new URL(rawUrl);
+  } catch (e) {
+    targetUrl = new URL("https://libweb.my.id/public/api");
+  }
+
+  // Replace /api prefix with target pathname (e.g. /public/api or /api)
+  const targetPath = req.originalUrl.replace(/^\/api/, targetUrl.pathname.replace(/\/$/, ""));
+
+  const isHttps = targetUrl.protocol === "https:";
+  const port = targetUrl.port ? parseInt(targetUrl.port) : (isHttps ? 443 : 80);
+
+  const options: any = {
+    hostname: targetUrl.hostname,
+    port: port,
+    path: targetPath,
     method: req.method,
     headers: { ...req.headers }
   };
 
-  // Set Host header correctly for Laravel
+  // Set Host header correctly for the backend target
   if (options.headers) {
-    options.headers.host = "libweb.my.id";
+    const hostValue = targetUrl.port ? `${targetUrl.hostname}:${targetUrl.port}` : targetUrl.hostname;
+    options.headers.host = hostValue;
     delete options.headers.connection;
     delete options.headers.host;
-    options.headers.Host = "libweb.my.id";
+    options.headers.Host = hostValue;
   }
 
-  console.log(`[Proxy Target] https://${options.hostname}${options.path}`);
+  console.log(`[Proxy Target] ${targetUrl.protocol}//${options.hostname}:${options.port}${options.path}`);
   console.log(`[Proxy Headers]`, JSON.stringify(options.headers));
 
-  const proxyReq = https.request(options, (proxyRes) => {
+  const requestLib = isHttps ? https : http;
+  const proxyReq = requestLib.request(options, (proxyRes) => {
     console.log(`[Proxy Response] ${proxyRes.statusCode} for ${req.originalUrl}`);
     res.writeHead(proxyRes.statusCode || 200, proxyRes.headers);
     proxyRes.pipe(res);
@@ -39,7 +59,7 @@ app.use("/api", (req, res) => {
 
   proxyReq.on("error", (err) => {
     console.error("Proxy error:", err);
-    res.status(502).send("Bad Gateway: Backend Laravel tidak aktif");
+    res.status(502).send(`Bad Gateway: Backend Laravel tidak aktif di ${targetUrl.origin}`);
   });
 
   req.pipe(proxyReq);
