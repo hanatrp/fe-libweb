@@ -26,8 +26,8 @@ export default function MemberDashboard({
   const [sendingChat, setSendingChat] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-  const activeLoans = loans.filter((l) => l.user_id === currentUser?.id && l.status !== "returned");
-  const returnHistory = loans.filter((l) => l.user_id === currentUser?.id && l.status === "returned");
+  const activeLoans = loans.filter((l) => String(l.user_id) === String(currentUser?.id) && l.status !== "returned");
+  const returnHistory = loans.filter((l) => String(l.user_id) === String(currentUser?.id) && l.status === "returned");
   const totalFine = activeLoans.reduce((sum, l) => sum + l.fine_amount, 0);
 
   // Fetch Chat History on mount or user switch
